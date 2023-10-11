@@ -17,7 +17,7 @@ services:
   db:
     image: postgres:13.0-alpine
     ports:
-      - "30333:5432"
+      - "5432:5432"
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data/
