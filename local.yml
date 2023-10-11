@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: compose/local/django/Dockerfile
     volumes:
-      - .:/code
+      - ./src:/code
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
