@@ -2,5 +2,5 @@ from django.urls import path
 from .views import QuestionAPIView
 
 urlpatterns = [
-    path('quiz/', QuestionAPIView.as_view(), name='question-api'),
+    path('', QuestionAPIView.as_view(), name='question-api'),
 ]
