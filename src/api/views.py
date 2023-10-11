@@ -1,17 +1,15 @@
 import os
 
-from drf_spectacular.utils import (OpenApiExample,
-                                   extend_schema, extend_schema_view)
 import requests
+from drf_spectacular.utils import OpenApiExample, extend_schema
 from rest_framework import status
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import Question
 from .serializers import QuestionSerializer
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.authentication import SessionAuthentication
-from rest_framework.permissions import AllowAny
-
 
 API_SOURCE = os.environ.get('API_SOURCE')
 
@@ -31,8 +29,10 @@ API_SOURCE = os.environ.get('API_SOURCE')
     ],
 )
 class QuestionAPIView(APIView):
+
     authentication_classes = [SessionAuthentication]
     permission_classes = [AllowAny]
+
     def post(self, request, *args, **kwargs):
         questions_num = request.data.get('questions_num', 1)
         while True:
@@ -44,12 +44,9 @@ class QuestionAPIView(APIView):
                         question_id=item['id'],
                         text=item['question'],
                         answer=item['answer'],
-                        created= item['created_at']
+                        created=item['created_at']
                     )
                     break
             last_question = Question.objects.last()
             serializer = QuestionSerializer(last_question)
             return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-
