@@ -44,6 +44,36 @@ $ docker-compose -f local.yml exec web python3 manage.py migrate
 
 Open a browser and go to http://localhost:8000
 
+### Create a POST response:
+
+###### Required parameters
+``questions_num``  - Number of questions to request from API service
+
+ 
+###### Endpoint
+
+POST /api/
+
+###### Example request
+```
+curl -X 'POST' \
+  'http://0.0.0.0:8000/api/' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -H 'X-CSRFTOKEN: 8lCWex5xK6vfRoiS0A5dnjSzmt9IODZxJ5EVQLJ2P9WLxnNsbW920Uyg01YcCidq' \
+  -d '{
+  "questions_num": 3
+}'
+```
+###### Example JSON response
+```
+{
+  "question_id": 57413,
+  "text": "Michael,Shirley,Jesse",
+  "answer": "Jackson",
+  "created": "2022-12-30T19:02:12.891000Z"
+}
+```
 
 ## Connect to PostgreSQL:
 
